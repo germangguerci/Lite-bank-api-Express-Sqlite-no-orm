@@ -12,17 +12,18 @@ const saltRounds = 10;
 export default class {
   static setupDbForDev() {
     db.serialize(function () {
+      db.get("PRAGMA foreign_keys = ON");
       db.run(CREATE_USERS_TABLE);
       db.run(CREATE_ACCOUNTS_TABLE);
       db.run(CREATE_TRANSFERS_TABLE);
       db.run(CREATE_DEPOSITS_TABLE);
-      let password = "Azucar1234!";
+      /*   let password = "Azucar1234!";
       bcrypt.hash(password, saltRounds, function (err, hash) {
         const insertUsers = `INSERT INTO users (full_name, date_of_birth, dni, phone, email, username, password)
         VALUES ('Pedro Picapiedra', julianday('1996-12-12'), '40130620', '542257624787', 'pedropicapiedra@gmail.com', 'pedropicapiedra', '${hash}'),
         ('Marge Simpson', julianday('1985-10-11'), '30130620', '542257624787', 'pedropicapiedra@gmail.com', 'pedropicapiedra', '${hash}');`;
         db.run(insertUsers);
-      });
+      }); */
     });
     //  db.close();
   }

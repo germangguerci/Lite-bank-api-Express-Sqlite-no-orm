@@ -30,6 +30,7 @@ destiny_account INTEGER NOT NULL,
 value INTEGER NOT NULL,
 created_at REAL DEFAULT (julianday('now')),
 remaining_balance INTEGER NOT NULL,
+status TEXT NOT NULL DEFAULT pending,
 FOREIGN KEY(origin_account) REFERENCES accounts(account_id),
 FOREIGN KEY(destiny_account) REFERENCES users(account_id)
 );`;
