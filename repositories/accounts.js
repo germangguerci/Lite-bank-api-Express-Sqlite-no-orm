@@ -46,14 +46,11 @@ export default class {
         });
     }
     //Obtener cbu y numero de cuenta.
-    const lastAccountId = (await dao.get(
-      `select max(account_id) as 'id' from accounts;`
-    ))?.id || "100000000001";
-    console.log(lastAccountId);
+    const lastAccountId =
+      (await dao.get(`select max(account_id) as 'id' from accounts;`))?.id ||
+      "100000000001";
     const cbu = generateCBU(999, 1, lastAccountId);
     const accountId = cbu.slice(9, 21);
-    console.log(accountId);
-    console.log(cbu);
     await dao.run(`INSERT INTO accounts (account_id, user_id, cbu, balance, currency )
     VALUES (
     '${accountId}',
@@ -65,10 +62,23 @@ export default class {
     //TRUE dolares: Crear caja de ahorro en pesos y caja de ahorro en dolares.
     //FALSE dolares: Crear caja de ahorro
     //Devolver informacion de cuentas creadas.
+    const newAccount = await dao.get(
+      `select * from accounts where account_id = '${accountId}';`
+    );
+    const today = new Date();
     return {
       succes: true,
-      user_id,
-      data: payload,
+      user_data: {
+        user_id,
+        username: payload?.username,
+      },
+      created_account_data: {
+        account_id: newAccount.account_id, //Todo:cambiar por accountNumber con el formato indicado.
+        cbu: newAccount.cbu,
+        account_balance: newAccount.balance,
+        currency: newAccount.currency,
+        created_at: today.toLocaleDateString(), //Todo: cambiar placeholder por la conversión real de julianDate a date, buscar libreria.
+      },
     };
   }
 }

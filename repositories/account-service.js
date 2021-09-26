@@ -1,7 +1,7 @@
 export function generateCBU(bankId, sucursalId, accountId) {
   let B = ("000000" + bankId).slice(-3);
   let S = ("000000" + sucursalId).slice(-4);
-  let C = ("10000000000000000" + accountId).slice(-13);
+  let C = ("1111" + (parseInt(accountId) + 1)).slice(-13);
   let verificador1 =
     B[0] * 7 + B[1] * 1 + B[2] * 3 + S[0] * 9 + S[1] * 7 + S[2] * 1 + S[3] * 3;
   verificador1 = (10 - (verificador1 % 10)) % 10;
