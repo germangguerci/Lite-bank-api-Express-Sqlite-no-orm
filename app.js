@@ -41,4 +41,4 @@ dao.setupDbForDev();
 
 app.use("/api/auth", authRoutes);
 app.use("/api/items", authenticated, itemsRoutes);
-app.use("/api/accounts", accountsRoutes);
+app.use("/api/accounts", authenticated, accountsRoutes);

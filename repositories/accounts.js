@@ -81,4 +81,8 @@ export default class {
       },
     };
   }
+
+  static async createPin(payload){
+    return "hello";
+  }
 }

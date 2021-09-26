@@ -16,6 +16,6 @@ export default class {
   }
 
   static async getUserById(id) {
-    return dao.get("SELECT * FROM users WHERE id = ?", [id]);
+    return dao.get("SELECT * FROM users WHERE user_id = ?", [id]);
   }
 }

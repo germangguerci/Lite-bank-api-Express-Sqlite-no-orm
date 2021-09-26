@@ -28,13 +28,14 @@ export const authMiddleware = async (req, res, next) => {
       req.userId = userId;
     }
   } catch (e) {
+    console.log(e);
     return next();
   }
   next();
 };
 
 export const authenticated = (req, res, next) => {
-  if (req.userId) {
+  if (req.userId || req.originalUrl === "/api/accounts") {
     return next();
   }
 
@@ -50,7 +51,6 @@ const returnInvalidCredentials = (res) => {
 export const login = async (req, res) => {
   try {
     const { username, password } = req.body;
-    console.log(username, password);
 
     const user = await repository.getUserByUsername(username);
 
@@ -60,7 +60,7 @@ export const login = async (req, res) => {
 
     bcrypt.compare(password, user.password, (err, result) => {
       if (result) {
-        const accessToken = encodeToken({ userId: user.id });
+        const accessToken = encodeToken({ userId: user.user_id });
         return res.json({ accessToken });
       } else {
         return returnInvalidCredentials(res);
