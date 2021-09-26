@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 
 import dao from "./dao";
+import repository from "./repository";
 
 const saltRounds = 10;
 
@@ -13,16 +14,21 @@ export default class {
     const findUser = await dao.get(`SELECT user_id FROM USERS where dni = ?`, [
       dni,
     ]);
-    //SI existe: obtener el user_id
+    //SI existe: obtener el user_id y validar contraseña. 
     if (findUser) {
       user_id = findUser.user_id;
+      const user = await repository.getUserByUsername(username);
+      const passwordIsValid = await bcrypt.compare(password, user.password);
+      //Si el password no coincide con el password guardado en la bd, retornar error.  
+      if(!passwordIsValid){
+          return { error: "Invalid username or password" };
+      }
     }
     //NO existe: crear usuario y obtener user_id
     else {
-      const hashPassword = bcrypt.hash(
+      const hashPassword = await bcrypt.hash(
         password,
-        saltRounds,
-        (err, hash) => hash
+        saltRounds
       );
       const insertUser = `INSERT INTO users (full_name, date_of_birth, dni, phone, email, username, password)
       VALUES ('${full_name}', julianday('${date_of_birth}'), '${dni}', '${phone}', '${email}', '${username}', '${hashPassword}') ;`;
