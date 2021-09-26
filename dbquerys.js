@@ -5,7 +5,7 @@ date_of_birth REAL NOT NULL,
 dni TEXT NOT NULL UNIQUE,
 phone TEXT,
 email TEXT NOT NULL,
-username TEXT NOT NULL,
+username TEXT NOT NULL UNIQUE,
 password TEXT NOT NULL,
 created_at REAL DEFAULT (julianday('now')),
 updated_at REAL
