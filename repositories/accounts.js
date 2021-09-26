@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 
 import dao from "./dao";
 import repository from "./repository";
+import { generateCBU } from "./account-service";
 
 const saltRounds = 10;
 
@@ -14,22 +15,19 @@ export default class {
     const findUser = await dao.get(`SELECT user_id FROM USERS where dni = ?`, [
       dni,
     ]);
-    //SI existe: obtener el user_id y validar contraseña. 
+    //SI existe: obtener el user_id y validar contraseña.
     if (findUser) {
       user_id = findUser.user_id;
       const user = await repository.getUserByUsername(username);
       const passwordIsValid = await bcrypt.compare(password, user.password);
-      //Si el password no coincide con el password guardado en la bd, retornar error.  
-      if(!passwordIsValid){
-          return { error: "Invalid username or password" };
+      //Si el password no coincide con el password guardado en la bd, retornar error.
+      if (!passwordIsValid) {
+        return { error: "Invalid username or password" };
       }
     }
     //NO existe: crear usuario y obtener user_id
     else {
-      const hashPassword = await bcrypt.hash(
-        password,
-        saltRounds
-      );
+      const hashPassword = await bcrypt.hash(password, saltRounds);
       const insertUser = `INSERT INTO users (full_name, date_of_birth, dni, phone, email, username, password)
       VALUES ('${full_name}', julianday('${date_of_birth}'), '${dni}', '${phone}', '${email}', '${username}', '${hashPassword}') ;`;
       await dao
@@ -47,7 +45,23 @@ export default class {
           console.log(error);
         });
     }
-    //Crear cuentas
+    //Obtener cbu y numero de cuenta.
+    const lastAccountId = (await dao.get(
+      `select max(account_id) as 'id' from accounts;`
+    ))?.id || "100000000001";
+    console.log(lastAccountId);
+    const cbu = generateCBU(999, 1, lastAccountId);
+    const accountId = cbu.slice(9, 21);
+    console.log(accountId);
+    console.log(cbu);
+    await dao.run(`INSERT INTO accounts (account_id, user_id, cbu, balance, currency )
+    VALUES (
+    '${accountId}',
+    '${user_id}',
+    '${cbu}',
+    '0',
+    'ARS'
+    );`);
     //TRUE dolares: Crear caja de ahorro en pesos y caja de ahorro en dolares.
     //FALSE dolares: Crear caja de ahorro
     //Devolver informacion de cuentas creadas.
