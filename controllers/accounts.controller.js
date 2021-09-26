@@ -8,7 +8,7 @@ export default class {
       }
     
     static async createPin(req, res) {
-        let response = await accounts.createPin(req.body);
+        let response = await accounts.createPin({...req.body, user_id: req.userId});
         return res.send({response})
     }
 }

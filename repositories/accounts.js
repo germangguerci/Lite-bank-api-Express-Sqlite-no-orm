@@ -82,7 +82,24 @@ export default class {
     };
   }
 
-  static async createPin(payload){
-    return "hello";
+  static async createPin(payload) {
+    const { user_id, account_id, pin } = payload;
+    //verificar que exista la cuenta asociada al usuario y que el pin sea distinto a ''.
+    const response = await dao.get(`select pin from accounts where user_id = '${user_id}' and account_id = '${account_id}';`)
+    if (typeof response === "undefined") {
+      return {
+        "succes:": false,
+        error: "Cant find associated account",
+      };
+    }
+    //Encriptar pin
+    const hashPin = await bcrypt.hash(pin, saltRounds);
+    //Realizar el update
+    dao.run(`UPDATE accounts
+    SET pin = "${hashPin}"
+    WHERE user_id = "${user_id}" AND account_id = "${account_id}";`);
+    return {
+      success: true,
+    };
   }
 }

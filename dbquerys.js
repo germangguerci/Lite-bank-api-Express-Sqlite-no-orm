@@ -17,7 +17,7 @@ user_id INTEGER,
 cbu TEXT NOT NULL,
 balance INTEGER NOT NULL,
 currency TEXT NOT NULL,
-pin INTEGER DEFAULT '0',
+pin TEXT DEFAULT '',
 created_at REAL DEFAULT (julianday('now')),
 updated_at REAL,
 FOREIGN KEY(user_id) REFERENCES users(user_id)
@@ -63,4 +63,9 @@ VALUES (
 '500',
 '-500'
 ) ;
+
+UPDATE accounts
+SET pin = "1234"
+WHERE user_id = "2" AND account_id = "100000000012";
+
  */
