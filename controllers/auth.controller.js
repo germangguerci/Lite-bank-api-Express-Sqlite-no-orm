@@ -35,7 +35,11 @@ export const authMiddleware = async (req, res, next) => {
 };
 
 export const authenticated = (req, res, next) => {
-  if (req.userId || req.originalUrl === "/api/accounts") {
+  if (
+    req.userId ||
+    req.originalUrl === "/api/accounts" ||
+    req.originalUrl === "/api/accounts/devDeposit"
+  ) {
     return next();
   }
 

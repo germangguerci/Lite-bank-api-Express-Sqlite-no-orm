@@ -85,7 +85,9 @@ export default class {
   static async createPin(payload) {
     const { user_id, account_id, pin } = payload;
     //verificar que exista la cuenta asociada al usuario y que el pin sea distinto a ''.
-    const response = await dao.get(`select pin from accounts where user_id = '${user_id}' and account_id = '${account_id}';`)
+    const response = await dao.get(
+      `select pin from accounts where user_id = '${user_id}' and account_id = '${account_id}';`
+    );
     if (typeof response === "undefined") {
       return {
         "succes:": false,
@@ -95,9 +97,27 @@ export default class {
     //Encriptar pin
     const hashPin = await bcrypt.hash(pin, saltRounds);
     //Realizar el update
-    dao.run(`UPDATE accounts
+    await dao.run(`UPDATE accounts
     SET pin = "${hashPin}"
     WHERE user_id = "${user_id}" AND account_id = "${account_id}";`);
+    return {
+      success: true,
+    };
+  }
+
+  static async devDeposit(payload) {
+    const { account_id, amount } = payload;
+    await dao
+      .run(
+        `UPDATE accounts
+    SET balance = "${amount}"
+    WHERE account_id = "${account_id}";`
+      )
+      .catch((error) => {
+        return {
+          success: false,
+        };
+      });
     return {
       success: true,
     };

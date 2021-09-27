@@ -6,5 +6,6 @@ const router = express.Router();
 
 router.post("/", accountsController.addAccount);
 router.post("/pin", accountsController.createPin);
+router.put("/devDeposit", accountsController.devDeposit);
 
-module.exports = router
+module.exports = router;
