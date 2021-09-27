@@ -24,7 +24,7 @@ FOREIGN KEY(user_id) REFERENCES users(user_id)
 );`;
 
 export const CREATE_TRANSFERS_TABLE = `CREATE TABLE IF NOT EXISTS transfers (
-order_id INTEGER PRIMARY KEY AUTOINCREMENT,
+transfer_id INTEGER PRIMARY KEY AUTOINCREMENT,
 origin_account INTEGER NOT NULL,
 destiny_account INTEGER NOT NULL,
 value INTEGER NOT NULL,
@@ -32,7 +32,7 @@ created_at REAL DEFAULT (julianday('now')),
 remaining_balance INTEGER NOT NULL,
 status TEXT NOT NULL DEFAULT pending,
 FOREIGN KEY(origin_account) REFERENCES accounts(account_id),
-FOREIGN KEY(destiny_account) REFERENCES users(account_id)
+FOREIGN KEY(destiny_account) REFERENCES accounts(account_id)
 );`;
 
 export const CREATE_DEPOSITS_TABLE = `CREATE TABLE IF NOT EXISTS deposits (

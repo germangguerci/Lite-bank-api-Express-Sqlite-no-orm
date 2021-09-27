@@ -2,8 +2,8 @@ import express from "express";
 import dao from "./repositories/dao";
 import { authenticated, authMiddleware } from "./controllers/auth.controller";
 import authRoutes from "./routes/auth.routes";
-import itemsRoutes from "./routes/items.routes";
 import accountsRoutes from "./routes/accounts.routes";
+import transfersRouter from "./routes/transfers.routes";
 const session = require("express-session");
 import * as sqlite3 from "sqlite3";
 import sqliteStoreFactory from "express-session-sqlite";
@@ -11,9 +11,7 @@ import sqliteStoreFactory from "express-session-sqlite";
 const port = 3000;
 export const app = express();
 
-app.listen(port, () =>
-  console.log(`Authentication example app listening on port ${port}!`)
-);
+app.listen(port, () => console.log(`Api-bancaria listening on port ${port}!`));
 app.use(express.json());
 app.use(
   express.urlencoded({
@@ -40,5 +38,5 @@ app.use(
 dao.setupDbForDev();
 
 app.use("/api/auth", authRoutes);
-app.use("/api/items", authenticated, itemsRoutes);
 app.use("/api/accounts", authenticated, accountsRoutes);
+app.use("/api/transfers", authenticated, transfersRouter);
