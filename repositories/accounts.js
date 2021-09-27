@@ -110,7 +110,7 @@ export default class {
     await dao
       .run(
         `UPDATE accounts
-    SET balance = "${amount}"
+    SET balance = ((SELECT balance FROM accounts where account_id = '${account_id}') + '${amount}')
     WHERE account_id = "${account_id}";`
       )
       .catch((error) => {
