@@ -33,17 +33,28 @@ export default class {
     '${amount}',
     '${originData.balance}'
     ) ;`);
+    //Obtener id de transferencia generada.
+    const transfer_id = await dao
+      .get(`select max(transfer_id) as 'id' from transfers;`)
+      .catch((error) => console.log(error));
+    const newBalance = originData.balance - amount;
     //Si el monto es menor o igual a $10000,00 (1000000) Int.
     //Completar transferencia
-
-    //No
-    //Pedir pin
-    //Comprobar pin
-
-    //SI el pin es valido cursar transferencia
-    //No devolver error
-
-    //console.log(payload);
+    if (amount <= 1000000) {
+      await dao.run(`UPDATE transfers set status = 'done', remaining_balance = '${newBalance}' where transfer_id = '${transfer_id.id}'`);
+    } else {
+      return {
+          success: true, 
+          data: {
+              message: "pending",
+              transfer_id
+          }
+      }
+      //Pedir pin
+      //Comprobar pin
+      //SI el pin es valido cursar transferencia
+      //No devolver error
+    }
     return {
       success: true,
       data: {

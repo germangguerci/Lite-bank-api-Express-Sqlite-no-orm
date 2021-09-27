@@ -25,8 +25,8 @@ FOREIGN KEY(user_id) REFERENCES users(user_id)
 
 export const CREATE_TRANSFERS_TABLE = `CREATE TABLE IF NOT EXISTS transfers (
 transfer_id INTEGER PRIMARY KEY AUTOINCREMENT,
-origin_account INTEGER NOT NULL,
-destiny_account INTEGER NOT NULL,
+origin_account TEXT NOT NULL,
+destiny_account TEXT NOT NULL,
 value INTEGER NOT NULL,
 created_at REAL DEFAULT (julianday('now')),
 remaining_balance INTEGER NOT NULL,
