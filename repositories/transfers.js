@@ -1,5 +1,4 @@
 import dao from "./dao";
-import accountService from "./account-service";
 import transfersService from "./transfers-service";
 
 export default class {
@@ -30,7 +29,7 @@ export default class {
     //Buscar destinyAccountId a partir de destiny_cbu
     const destinyAccountId = await dao
       .get(`SELECT account_id FROM accounts where cbu = '${destiny_cbu}'; `)
-      .then(data => data.account_id)
+      .then((data) => data.account_id)
       .catch((error) => console.log(error));
     if (typeof destinyAccountId === "undefined") {
       return {
@@ -72,10 +71,6 @@ export default class {
           transfer_id,
         },
       };
-      //Pedir pin
-      //Comprobar pin
-      //SI el pin es valido cursar transferencia
-      //No devolver error
     }
     return {
       success: true,
@@ -86,6 +81,39 @@ export default class {
         destiny_account_id: destinyAccountId,
         amount,
       },
+    };
+  }
+
+  static async confirmTransfer(payload, userId) {
+    const { transfer_id, pin } = payload;
+    //Obtener origin_account
+    const transfer = await transfersService.getTransfer(transfer_id);
+    if (!transfer) {
+      return { success: false, error: "Invalid transfer_id" };
+    }
+    //Validar que la cuenta pertenezca a el usuario.
+    const originAccount = await transfersService.validateAccount(
+      transfer.origin_account,
+      userId
+    );
+    if (!originAccount) {
+      return {
+        success: false,
+        error: `Current user can't confirm the transfer with id: ${transfer_id}`,
+      };
+    }
+    //Comprobar pin
+    const pinIsValid = await transfersService.validatePin(pin, originAccount.pin);
+    if (!pinIsValid) {
+      return {
+        success: false,
+        error: `Invalid PIN`,
+      };
+    }
+    //SI el pin es valido cursar transferencia
+    return {
+      payload,
+      userId,
     };
   }
 }

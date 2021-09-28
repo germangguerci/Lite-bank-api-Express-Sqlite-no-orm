@@ -1,4 +1,5 @@
 import dao from "./dao";
+const bcrypt = require("bcrypt");
 
 export default class {
   static async transferCash(
@@ -23,5 +24,21 @@ export default class {
     WHERE account_id = '${destinyAccountId}';
     `;
     await dao.run(updateDestinyBalance).catch((error) => console.log(error));
+  }
+
+  static async getTransfer(transferId) {
+    return dao.get(
+      `SELECT * FROM transfers WHERE transfer_id = '${transferId}';`
+    );
+  }
+
+  static async validateAccount(accountId, userId) {
+    return dao.get(
+      `SELECT * FROM accounts WHERE account_id = '${accountId}' and user_id='${userId}';`
+    );
+  }
+
+  static async validatePin(pin, originAccountPin) {
+    return bcrypt.compare(pin, originAccountPin);
   }
 }
