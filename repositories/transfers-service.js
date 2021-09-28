@@ -15,6 +15,9 @@ export default class {
     `;
     await dao.run(updateOriginBalance).catch((error) => console.log(error));
     await dao.run(updateDestinyBalance).catch((error) => console.log(error));
+    return dao.get(
+      `SELECT balance from accounts where account_id = '${originAccountId}';`
+    );
   }
 
   static async getTransfer(transferId) {
@@ -33,9 +36,12 @@ export default class {
     return bcrypt.compare(pin, originAccountPin);
   }
 
-  static async setStatusDone(transferId) {
+  static async setStatusDone(transferId, remainingBalance) {
+    console.log(remainingBalance);
     await dao
-      .run(`UPDATE transfers SET status = 'done';`)
+      .run(
+        `UPDATE transfers SET status = 'done', remaining_balance = '${remainingBalance}' where transfer_id = '${transferId}';`
+      )
       .catch((error) => console.log(error));
   }
 }

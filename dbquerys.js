@@ -7,8 +7,8 @@ phone TEXT,
 email TEXT NOT NULL,
 username TEXT NOT NULL UNIQUE,
 password TEXT NOT NULL,
-created_at REAL DEFAULT (julianday('now')),
-updated_at REAL
+created_at TEXT DEFAULT (datetime('now','localtime')),
+updated_at TEXT
 )`;
 
 export const CREATE_ACCOUNTS_TABLE = `CREATE TABLE IF NOT EXISTS accounts (
@@ -18,8 +18,8 @@ cbu TEXT NOT NULL,
 balance INTEGER NOT NULL,
 currency TEXT NOT NULL,
 pin TEXT DEFAULT '',
-created_at REAL DEFAULT (julianday('now')),
-updated_at REAL,
+created_at TEXT DEFAULT (datetime('now','localtime')),
+updated_at TEXT,
 FOREIGN KEY(user_id) REFERENCES users(user_id)
 );`;
 
@@ -28,7 +28,8 @@ transfer_id INTEGER PRIMARY KEY AUTOINCREMENT,
 origin_account TEXT NOT NULL,
 destiny_account TEXT NOT NULL,
 value INTEGER NOT NULL,
-created_at REAL DEFAULT (julianday('now')),
+created_at TEXT DEFAULT (datetime('now','localtime')),
+updated_at TEXT,
 remaining_balance INTEGER NOT NULL,
 status TEXT NOT NULL DEFAULT pending,
 FOREIGN KEY(origin_account) REFERENCES accounts(account_id),
@@ -38,7 +39,7 @@ FOREIGN KEY(destiny_account) REFERENCES accounts(account_id)
 export const CREATE_DEPOSITS_TABLE = `CREATE TABLE IF NOT EXISTS deposits (
 deposit_id INTEGER PRIMARY KEY,
 account_id INTEGER,
-created_at REAL DEFAULT (julianday('now')),
+created_at TEXT DEFAULT (datetime('now','localtime')),
 expire_date REAL,
 FOREIGN KEY(account_id) REFERENCES accounts(account_id)
 );`;

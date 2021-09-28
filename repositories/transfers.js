@@ -85,6 +85,9 @@ export default class {
     if (!transfer) {
       return { success: false, error: "Invalid transfer_id" };
     }
+    if (transfer.status !== "pending") {
+      return { succes: false, error: "Transfer already confirmed" };
+    }
     //Validar que la cuenta pertenezca a el usuario.
     const originAccount = await transfersService.validateAccount(
       transfer.origin_account,
@@ -108,12 +111,17 @@ export default class {
       };
     }
     //SI el pin es valido cursar transferencia
-    await transfersService.transferCash(transfer.origin_account, transfer.destiny_account, transfer.value);
+    const remainingBalance = await transfersService
+      .transferCash(
+        transfer.origin_account,
+        transfer.destiny_account,
+        transfer.value
+      )
+      .catch((error) => console.log(error));
     //Actualizar el estado de la transferencia.
-    await transfersService.setStatusDone(transfer_id);
-    //await transfersService.transferCash(transfer.originAccount, transfer.destiny_account,  )
+    await transfersService.setStatusDone(transfer_id, remainingBalance);
     return {
-      success: true
+      success: true,
     };
   }
 }
