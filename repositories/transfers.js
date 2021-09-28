@@ -50,15 +50,9 @@ export default class {
       .get(`select max(transfer_id) as 'id' from transfers;`)
       .catch((error) => console.log(error));
     const newBalance = originData.balance - amount;
-
     //Si el monto es menor o igual a $10000,00 (1000000) Int.
     if (amount <= 1000000) {
-      await transfersService.transferCash(
-        account_id,
-        destinyAccountId,
-        newBalance,
-        amount
-      );
+      await transfersService.transferCash(account_id, destinyAccountId, amount);
       //Actualizar estado.
       await dao.run(
         `UPDATE transfers set status = 'done', remaining_balance = '${newBalance}' where transfer_id = '${transfer_id.id}';`
@@ -86,7 +80,7 @@ export default class {
 
   static async confirmTransfer(payload, userId) {
     const { transfer_id, pin } = payload;
-    //Obtener origin_account
+    //Obtener transferencia
     const transfer = await transfersService.getTransfer(transfer_id);
     if (!transfer) {
       return { success: false, error: "Invalid transfer_id" };
@@ -103,7 +97,10 @@ export default class {
       };
     }
     //Comprobar pin
-    const pinIsValid = await transfersService.validatePin(pin, originAccount.pin);
+    const pinIsValid = await transfersService.validatePin(
+      pin,
+      originAccount.pin
+    );
     if (!pinIsValid) {
       return {
         success: false,
@@ -111,6 +108,10 @@ export default class {
       };
     }
     //SI el pin es valido cursar transferencia
+    await transfersService.transferCash(transfer.origin_account, transfer.destiny_account, transfer.amount);
+    //Actualizar el estado de la transferencia.
+    
+    //await transfersService.transferCash(transfer.originAccount, transfer.destiny_account,  )
     return {
       payload,
       userId,

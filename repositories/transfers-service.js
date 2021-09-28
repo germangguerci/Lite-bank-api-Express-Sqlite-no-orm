@@ -5,24 +5,19 @@ export default class {
   static async transferCash(
     originAccountId,
     destinyAccountId,
-    originNewBalance,
     amount
   ) {
-    await dao
-      .run(
-        `
-        UPDATE accounts
-        SET balance = '${originNewBalance}' 
-        WHERE account_id = '${originAccountId}';
-        `
-      )
-      .catch((error) => console.log(error));
-
+    const updateOriginBalance = `
+    UPDATE accounts
+    SET balance = ((SELECT balance from accounts where account_id = '${originAccountId}') - '${amount}')
+    WHERE account_id = '${originAccountId}';
+    `;
     const updateDestinyBalance = `
     UPDATE accounts
     SET balance = ((SELECT balance FROM accounts where account_id = '${destinyAccountId}') + '${amount}')
     WHERE account_id = '${destinyAccountId}';
     `;
+    await dao.run(updateOriginBalance).catch((error) => console.log(error));
     await dao.run(updateDestinyBalance).catch((error) => console.log(error));
   }
 
