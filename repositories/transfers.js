@@ -108,13 +108,12 @@ export default class {
       };
     }
     //SI el pin es valido cursar transferencia
-    await transfersService.transferCash(transfer.origin_account, transfer.destiny_account, transfer.amount);
+    await transfersService.transferCash(transfer.origin_account, transfer.destiny_account, transfer.value);
     //Actualizar el estado de la transferencia.
-    
+    await transfersService.setStatusDone(transfer_id);
     //await transfersService.transferCash(transfer.originAccount, transfer.destiny_account,  )
     return {
-      payload,
-      userId,
+      success: true
     };
   }
 }

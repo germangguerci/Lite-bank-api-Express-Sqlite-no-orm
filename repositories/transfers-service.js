@@ -2,11 +2,7 @@ import dao from "./dao";
 const bcrypt = require("bcrypt");
 
 export default class {
-  static async transferCash(
-    originAccountId,
-    destinyAccountId,
-    amount
-  ) {
+  static async transferCash(originAccountId, destinyAccountId, amount) {
     const updateOriginBalance = `
     UPDATE accounts
     SET balance = ((SELECT balance from accounts where account_id = '${originAccountId}') - '${amount}')
@@ -35,5 +31,11 @@ export default class {
 
   static async validatePin(pin, originAccountPin) {
     return bcrypt.compare(pin, originAccountPin);
+  }
+
+  static async setStatusDone(transferId) {
+    await dao
+      .run(`UPDATE transfers SET status = 'done';`)
+      .catch((error) => console.log(error));
   }
 }
