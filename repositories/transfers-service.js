@@ -1,5 +1,7 @@
 import dao from "./dao";
 const bcrypt = require("bcrypt");
+import { getAccountBalance } from "./account-service";
+import repository from "./repository";
 
 export default class {
   static async transferCash(originAccountId, destinyAccountId, amount) {
@@ -13,11 +15,34 @@ export default class {
     SET balance = ((SELECT balance FROM accounts where account_id = '${destinyAccountId}') + '${amount}')
     WHERE account_id = '${destinyAccountId}';
     `;
+
     await dao.run(updateOriginBalance).catch((error) => console.log(error));
-    await dao.run(updateDestinyBalance).catch((error) => console.log(error));
-    return dao.get(
-      `SELECT balance from accounts where account_id = '${originAccountId}';`
+
+    const originBalance = await getAccountBalance(originAccountId)
+      .then((data) => data.balance)
+      .catch((error) => console.log(error));
+
+    await repository.addMovement(
+      originAccountId,
+      `TR.${originAccountId} D:${destinyAccountId}`,
+      -amount,
+      originBalance
     );
+
+    await dao.run(updateDestinyBalance).catch((error) => console.log(error));
+
+    const destinyBalance = await getAccountBalance(destinyAccountId)
+    .then((data) => data.balance)
+    .catch((error) => console.log(error));
+
+    await repository.addMovement(
+      originAccountId,
+      `TR.${originAccountId} D:${destinyAccountId}`,
+      amount,
+      destinyBalance
+    );
+
+    return getAccountBalance(originAccountId);
   }
 
   static async getTransfer(transferId) {
@@ -56,7 +81,7 @@ export default class {
     WHERE origin_account = '${accountId}'
     AND created_at
     BETWEEN '${fromDate}' AND '${untilDate}'
-    LIMIT '${limit}' OFFSET '${(limit * (page - 1))}';
+    LIMIT '${limit}' OFFSET '${limit * (page - 1)}';
     `);
   }
 }

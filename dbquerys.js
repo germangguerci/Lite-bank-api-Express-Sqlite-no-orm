@@ -38,7 +38,7 @@ FOREIGN KEY(destiny_account) REFERENCES accounts(account_id)
 
 export const CREATE_DEPOSITS_TABLE = `CREATE TABLE IF NOT EXISTS deposits (
 deposit_id INTEGER PRIMARY KEY,
-account_id INTEGER,
+account_id TEXT,
 created_at TEXT DEFAULT (datetime('now','localtime')),
 expire_date REAL,
 FOREIGN KEY(account_id) REFERENCES accounts(account_id)
@@ -46,7 +46,7 @@ FOREIGN KEY(account_id) REFERENCES accounts(account_id)
 
 export const CREATE_MOVEMENTS_TABLE = `CREATE TABLE IF NOT EXISTS movements (
 movement_id INTEGER PRIMARY KEY AUTOINCREMENT,
-account_id INTEGER NOT NULL,
+account_id TEXT NOT NULL,
 description TEXT,
 created_at TEXT DEFAULT (datetime('now','localtime')),
 import_value INTEGER NOT NULL,
