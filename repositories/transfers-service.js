@@ -44,4 +44,19 @@ export default class {
       )
       .catch((error) => console.log(error));
   }
+
+  static async getPaginatedTransfers(
+    accountId,
+    fromDate,
+    untilDate,
+    page,
+    limit
+  ) {
+    return dao.all(`SELECT * FROM transfers
+    WHERE origin_account = '${accountId}'
+    AND created_at
+    BETWEEN '${fromDate}' AND '${untilDate}'
+    LIMIT '${limit}' OFFSET '${(limit * (page - 1))}';
+    `);
+  }
 }

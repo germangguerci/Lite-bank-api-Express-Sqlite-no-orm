@@ -124,4 +124,34 @@ export default class {
       success: true,
     };
   }
+
+  static async getTransfers(payload, userId) {
+    const { account_id, from_date, until_date, page, limit } = payload;
+
+    //Validar que la cuenta pertenezca al usuario.
+    const validated = await transfersService.validateAccount(
+      account_id,
+      userId
+    );
+    if (!validated) {
+      return {
+        success: false,
+        error: `Current user can't access to account: ${account_id}`,
+      };
+    }
+    //obtener las transferencias
+    const transfers = await transfersService.getPaginatedTransfers(
+      account_id,
+      from_date,
+      until_date,
+      page,
+      limit
+    );
+    return {
+      success: true,
+      data: {
+        transfers,
+      },
+    };
+  }
 }
