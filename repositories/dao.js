@@ -3,6 +3,7 @@ import {
   CREATE_DEPOSITS_TABLE,
   CREATE_TRANSFERS_TABLE,
   CREATE_ACCOUNTS_TABLE,
+  CREATE_MOVEMENTS_TABLE,
 } from "../dbquerys";
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database("bankDb.s3db");
@@ -17,6 +18,7 @@ export default class {
       db.run(CREATE_ACCOUNTS_TABLE);
       db.run(CREATE_TRANSFERS_TABLE);
       db.run(CREATE_DEPOSITS_TABLE);
+      db.run(CREATE_MOVEMENTS_TABLE);
     });
     //  db.close();
   }

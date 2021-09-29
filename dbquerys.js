@@ -44,6 +44,14 @@ expire_date REAL,
 FOREIGN KEY(account_id) REFERENCES accounts(account_id)
 );`;
 
+export const CREATE_MOVEMENTS_TABLE = `CREATE TABLE IF NOT EXISTS movements (
+movement_id INTEGER PRIMARY KEY AUTOINCREMENT,
+account_id INTEGER NOT NULL,
+created_at TEXT DEFAULT (datetime('now','localtime')),
+balance INTEGER NOT NULL,
+FOREIGN KEY(account_id) REFERENCES accounts(account_id)
+);`;
+
 /* INSERT INTO users (full_name, date_of_birth, dni, phone, email, username, password)
 VALUES ('german gerardo guerci', julianday('1996-10-08'), '40130627', '542257636857', 'germangguerci@gmail.com', 'germangguerci', 'tobogan') ;
 
