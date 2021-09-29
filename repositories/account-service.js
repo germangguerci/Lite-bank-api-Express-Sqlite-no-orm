@@ -1,3 +1,4 @@
+import dao from "./dao";
 export function generateCBU(bankId, sucursalId, accountId) {
   let B = ("000000" + bankId).slice(-3);
   let S = ("000000" + sucursalId).slice(-4);
@@ -21,4 +22,8 @@ export function generateCBU(bankId, sucursalId, accountId) {
     C[12] * 3;
   verificador2 = (10 - (verificador2 % 10)) % 10;
   return B + S + verificador1 + C + verificador2; //CBU
+}
+
+export async function getAccountBalance(account_id){
+  return dao.get(`SELECT balance FROM accounts WHERE account_id = '${account_id}';`)
 }

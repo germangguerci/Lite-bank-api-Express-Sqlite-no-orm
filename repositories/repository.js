@@ -1,21 +1,27 @@
 import dao from "./dao";
-const bcrypt = require("bcrypt");
-const saltRounds = 10;
 
 export default class {
-/*   static async getAllItems() {
-    return dao.all("SELECT * FROM items", []);
-  }
-
-  static async getItemById(id) {
-    return dao.get("SELECT * FROM items WHERE id = ?", [id]);
-  } */
-
   static async getUserByUsername(username) {
     return dao.get("SELECT * FROM users WHERE username =?", [username]);
   }
 
   static async getUserById(id) {
     return dao.get("SELECT * FROM users WHERE user_id = ?", [id]);
+  }
+
+  static async addMovement(accountId, description, importValue, balance) {
+    return dao
+      .run(
+        `
+    INSERT INTO movements
+    (account_id, import_value, description, balance)
+    VALUES (
+    '${accountId}',
+    '${importValue}',
+    '${description}',
+    '${balance}'
+    ) ;`
+      )
+      .catch((error) => console.log(error));
   }
 }

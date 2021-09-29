@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 
 import dao from "./dao";
 import repository from "./repository";
-import { generateCBU } from "./account-service";
+import { generateCBU, getAccountBalance } from "./account-service";
 
 const saltRounds = 10;
 
@@ -114,10 +114,22 @@ export default class {
     WHERE account_id = "${account_id}";`
       )
       .catch((error) => {
+        console.log(error);
         return {
           success: false,
         };
       });
+    const balance = await getAccountBalance(account_id)
+      .then((data) => data.balance)
+      .catch((error) => {
+        console.log(error);
+      });
+    await repository.addMovement(
+      account_id,
+      "TEST Deposit from devDeposit endpoint",
+      amount,
+      balance
+    );
     return {
       success: true,
     };

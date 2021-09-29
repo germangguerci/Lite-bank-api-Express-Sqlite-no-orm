@@ -47,7 +47,9 @@ FOREIGN KEY(account_id) REFERENCES accounts(account_id)
 export const CREATE_MOVEMENTS_TABLE = `CREATE TABLE IF NOT EXISTS movements (
 movement_id INTEGER PRIMARY KEY AUTOINCREMENT,
 account_id INTEGER NOT NULL,
+description TEXT,
 created_at TEXT DEFAULT (datetime('now','localtime')),
+import_value INTEGER NOT NULL,
 balance INTEGER NOT NULL,
 FOREIGN KEY(account_id) REFERENCES accounts(account_id)
 );`;
