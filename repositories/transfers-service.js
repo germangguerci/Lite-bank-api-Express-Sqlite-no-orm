@@ -36,7 +36,7 @@ export default class {
     .catch((error) => console.log(error));
 
     await repository.addMovement(
-      originAccountId,
+      destinyAccountId,
       `TR.${originAccountId} D:${destinyAccountId}`,
       amount,
       destinyBalance

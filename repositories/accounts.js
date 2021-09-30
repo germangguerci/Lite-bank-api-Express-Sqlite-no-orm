@@ -74,16 +74,18 @@ export default class {
       const today = new Date();
       return {
         succes: true,
-        user_data: {
-          user_id,
-          username: payload?.username,
-        },
-        created_account_data: {
-          account_id: newAccount.account_id, 
-          cbu: newAccount.cbu,
-          account_balance: newAccount.balance,
-          currency: newAccount.currency,
-          created_at: today.toString(),
+        data: {
+          user_data: {
+            user_id,
+            username: payload?.username,
+          },
+          created_account_data: {
+            account_id: newAccount.account_id,
+            cbu: newAccount.cbu,
+            account_balance: newAccount.balance,
+            currency: newAccount.currency,
+            created_at: today.toString(),
+          },
         },
       };
     } catch (error) {
