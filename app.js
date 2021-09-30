@@ -1,12 +1,14 @@
 import express from "express";
 import dao from "./repositories/dao";
+const session = require("express-session");
+import * as sqlite3 from "sqlite3";
+import sqliteStoreFactory from "express-session-sqlite";
+
 import { authenticated, authMiddleware } from "./controllers/auth.controller";
 import authRoutes from "./routes/auth.routes";
 import accountsRoutes from "./routes/accounts.routes";
 import transfersRouter from "./routes/transfers.routes";
-const session = require("express-session");
-import * as sqlite3 from "sqlite3";
-import sqliteStoreFactory from "express-session-sqlite";
+import usersRouter from "./routes/users.routes";
 
 const port = 3000;
 export const app = express();
@@ -40,3 +42,4 @@ dao.setupDbForDev();
 app.use("/api/auth", authRoutes);
 app.use("/api/accounts", authenticated, accountsRoutes);
 app.use("/api/transfers", authenticated, transfersRouter);
+app.use("/api/users", authenticated, usersRouter);
