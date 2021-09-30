@@ -19,7 +19,7 @@ export default class {
         `SELECT account_id, cbu, currency, balance FROM accounts WHERE user_id = ${userId};`
       );
       //Calcular fechas.
-      const { today, fiveDaysAgo } = usersService.getUserInfoDates();
+      const { fiveDaysAgo } = usersService.getUserInfoDates();
       //Obtener movimientos de los ultimos 5 dias por cada cuenta.
       const accountsMovements = [];
 
@@ -29,7 +29,7 @@ export default class {
           .all(
             `SELECT description, created_at, import_value, balance FROM movements
         WHERE account_id = '${accountId}'
-        AND created_at >= '${fiveDaysAgo}' AND created_at <= '${today}'; `
+        AND created_at >= '${fiveDaysAgo}'; `
           )
           .catch((error) => console.log(error));
         accountsMovements.push({

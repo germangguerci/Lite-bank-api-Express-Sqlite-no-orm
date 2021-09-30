@@ -2,9 +2,13 @@ import accounts from "../repositories/accounts";
 
 export default class {
   static async addAccount(req, res) {
-    let account = await accounts.addAccount(req.body);
-    //Insertar manejo de errores aqui, modificar status dependiendo el flujo.
-    return res.send({ account });
+    let response = await accounts.addAccount(req.body);
+
+    if (response.success) {
+      return res.send({ response });
+    } else {
+      return res.status(400).send({ response });
+    }
   }
 
   static async createPin(req, res) {
@@ -12,11 +16,19 @@ export default class {
       ...req.body,
       user_id: req.userId,
     });
-    return res.send({ response });
+    if (response.success) {
+      return res.send({ response });
+    } else {
+      return res.status(400).send({ response });
+    }
   }
 
   static async devDeposit(req, res) {
     let response = await accounts.devDeposit(req.body);
-    return res.send({ response });
+    if (response.success) {
+      return res.send({ response });
+    } else {
+      return res.status(400).send({ response });
+    }
   }
 }
