@@ -62,10 +62,9 @@ export default class {
   }
 
   static async setStatusDone(transferId, remainingBalance) {
-    console.log(remainingBalance);
     await dao
       .run(
-        `UPDATE transfers SET status = 'done', remaining_balance = '${remainingBalance}' where transfer_id = '${transferId}';`
+        `UPDATE transfers SET status = 'done', remaining_balance = '${remainingBalance.balance}' where transfer_id = '${transferId}';`
       )
       .catch((error) => console.log(error));
   }

@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"full_name\": \"Rosalia\",\r\n    \"email\": \"rosalia@gmail.com\",\r\n    \"date_of_birth\": \"1996-12-05\",\r\n    \"dni\": \"20130679\",\r\n    \"phone\": \"5492257636989\",\r\n    \"username\": \"rosalia\",\r\n    \"password\": \"flamenco2012!\"\r\n}",
+							"raw": "{\r\n    \"full_name\": \"Rosalia Perez\",\r\n    \"email\": \"rosalia@gmail.com\",\r\n    \"date_of_birth\": \"1992-12-05\",\r\n    \"dni\": \"35130679\",\r\n    \"phone\": \"5492257636989\",\r\n    \"username\": \"rosaliap\",\r\n    \"password\": \"Flamenco2012!\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -41,7 +41,7 @@
 						"header": [
 							{
 								"key": "Access-Token",
-								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImp0aSI6IjJiOWI3MWM2LTAzMDMtNDFhYy04YzFkLTQ2YjY3YjljNGViOSIsImlhdCI6MTYzMzA0MzgxMiwiZXhwIjoxNjMzMDQ3NDEyfQ.J1LhJWkzc__x7GwVtwLO61aZ8zWZDSqaxQwUbLu4toc",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImp0aSI6Ijg3M2YwM2M0LTBlZjQtNGFmMi1hOGRlLWQ0OTMyYjRlOTI5OSIsImlhdCI6MTYzMzA4NTg4NCwiZXhwIjoxNjMzMDg5NDg0fQ.GZOo7DFVkFmNk8Zvt2J_4mAfheu6GbEQoQNiIf05yrs",
 								"type": "text"
 							}
 						],
@@ -106,7 +106,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"hugomayonesa\",\r\n    \"password\": \"flamenco2012!\"\r\n}",
+							"raw": "{\r\n    \"username\": \"rosaliap\",\r\n    \"password\": \"Flamenco2012!\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -138,13 +138,13 @@
 						"header": [
 							{
 								"key": "Access-Token",
-								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImp0aSI6IjJiOWI3MWM2LTAzMDMtNDFhYy04YzFkLTQ2YjY3YjljNGViOSIsImlhdCI6MTYzMzA0MzgxMiwiZXhwIjoxNjMzMDQ3NDEyfQ.J1LhJWkzc__x7GwVtwLO61aZ8zWZDSqaxQwUbLu4toc",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImp0aSI6Ijg3M2YwM2M0LTBlZjQtNGFmMi1hOGRlLWQ0OTMyYjRlOTI5OSIsImlhdCI6MTYzMzA4NTg4NCwiZXhwIjoxNjMzMDg5NDg0fQ.GZOo7DFVkFmNk8Zvt2J_4mAfheu6GbEQoQNiIf05yrs",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"account_id\": \"100000000001\",\r\n    \"destiny_cbu\": \"9990001811000000000039\",\r\n    \"amount\": 1000001\r\n}",
+							"raw": "{\r\n    \"account_id\": \"100000000001\",\r\n    \"destiny_cbu\": \"9990001811000000000022\",\r\n    \"amount\": 1002000\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -170,13 +170,13 @@
 						"header": [
 							{
 								"key": "Access-Token",
-								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImp0aSI6IjJiOWI3MWM2LTAzMDMtNDFhYy04YzFkLTQ2YjY3YjljNGViOSIsImlhdCI6MTYzMzA0MzgxMiwiZXhwIjoxNjMzMDQ3NDEyfQ.J1LhJWkzc__x7GwVtwLO61aZ8zWZDSqaxQwUbLu4toc",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImp0aSI6Ijg3M2YwM2M0LTBlZjQtNGFmMi1hOGRlLWQ0OTMyYjRlOTI5OSIsImlhdCI6MTYzMzA4NTg4NCwiZXhwIjoxNjMzMDg5NDg0fQ.GZOo7DFVkFmNk8Zvt2J_4mAfheu6GbEQoQNiIf05yrs",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"transfer_id\": 2,\r\n    \"pin\": \"78945612\"  \r\n}",
+							"raw": "{\r\n    \"transfer_id\": 1,\r\n    \"pin\": \"78945612\"  \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -206,13 +206,13 @@
 						"header": [
 							{
 								"key": "Access-Token",
-								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImp0aSI6IjJiOWI3MWM2LTAzMDMtNDFhYy04YzFkLTQ2YjY3YjljNGViOSIsImlhdCI6MTYzMzA0MzgxMiwiZXhwIjoxNjMzMDQ3NDEyfQ.J1LhJWkzc__x7GwVtwLO61aZ8zWZDSqaxQwUbLu4toc",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImp0aSI6Ijg3M2YwM2M0LTBlZjQtNGFmMi1hOGRlLWQ0OTMyYjRlOTI5OSIsImlhdCI6MTYzMzA4NTg4NCwiZXhwIjoxNjMzMDg5NDg0fQ.GZOo7DFVkFmNk8Zvt2J_4mAfheu6GbEQoQNiIf05yrs",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"account_id\": \"100000000001\",\r\n    \"from_date\": \"2021-09-28 20:02:44\",\r\n    \"until_date\": \"2021-10-01 20:17:16\",\r\n    \"page\": 1, \r\n    \"limit\": 2\r\n}",
+							"raw": "{\r\n    \"account_id\": \"100000000001\",\r\n    \"from_date\": \"2021-09-28 20:02:44\",\r\n    \"until_date\": \"2021-10-02 20:17:16\",\r\n    \"page\": 1, \r\n    \"limit\": 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -246,7 +246,7 @@
 						"header": [
 							{
 								"key": "Access-Token",
-								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImp0aSI6Ijc5MTI0OWE2LTQyNjAtNDBmNS05YjNkLTZmMTliYWFlZTY2ZCIsImlhdCI6MTYzMzA0MjY2MiwiZXhwIjoxNjMzMDQ2MjYyfQ.i5J8kqXyPKrzMJ_zNiFUugFyNnpdHbduat6ywElKV-8",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImp0aSI6Ijg3M2YwM2M0LTBlZjQtNGFmMi1hOGRlLWQ0OTMyYjRlOTI5OSIsImlhdCI6MTYzMzA4NTg4NCwiZXhwIjoxNjMzMDg5NDg0fQ.GZOo7DFVkFmNk8Zvt2J_4mAfheu6GbEQoQNiIf05yrs",
 								"type": "text"
 							}
 						],
