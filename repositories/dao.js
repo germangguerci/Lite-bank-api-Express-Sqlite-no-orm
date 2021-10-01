@@ -20,7 +20,6 @@ export default class {
       db.run(CREATE_DEPOSITS_TABLE);
       db.run(CREATE_MOVEMENTS_TABLE);
     });
-    //  db.close();
   }
 
   static all(stmt, params) {

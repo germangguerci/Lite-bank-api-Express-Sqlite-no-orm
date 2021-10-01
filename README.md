@@ -17,6 +17,9 @@ With NodeJS installed, you can started the server by running,
 npm install
 npm start
 ```
-Server will be available in http://localhost:3000
+Server will be available at http://localhost:3000
+
+# Important!
+This is a simple mvp / poc development api, it is far away from be production ready.
 
 
