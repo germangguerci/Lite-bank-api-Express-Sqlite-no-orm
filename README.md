@@ -25,7 +25,7 @@ Server will be available at http://localhost:3000
 # Important!
 This is a simple mvp / poc development api, it is far away from being production-ready.
 
-# Some features. 
+# Features. 
 - Add new account with user data, if user exist the new account will be linked to user, else a new user with the new account will be created. POST Add a new account
 - Add founds to account: PUT devDeposit. 
 - Transferencia: Post add new transfer. 
